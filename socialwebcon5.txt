@@ -1,0 +1,96 @@
+SocialWebConference vol.5 - OpenSocial Night #2 -
+2010/02/23
+ニフティ@大森町
+
+http://atnd.org/events/2981
+
+* OpenSocial jQueryによるウェブ制作スキルを活かしたOpenSocialアプリケーション開発
+中嶋信博氏
+
+- OpenSocial(PC)の基本はprofile viewとcanvas view
+-- gadget.xmlの中にviewとして定義する
+-- HTML,CSS,JavaScript,Flashなどを使う
+- OpenSocialのAPI
+-- OpenSocial JavaScript API (OpenSocial, Gadget, 拡張)
+-- RESTful API (REST, JSONRPC)
+-- パーミッションモデルの概念(情報の取得、更新の制限)
+
+- OpenSocial jQueryは一般的なWebアプリのようにOpenSocialアプリを実装出来るライブラリ
+-- jQueryの文法でOpenSocial APIへのアクセスその他が出来る
+-- mixiアプリだけでなくiGoogleとかでも使えるらしい
+- jquery + jsdeferred + open social plugin
+
+
+* AppEngineを使ったソーシャルアプリの開発と運用
+松尾貴史氏
+
+- ソーシャルアプリ作ってないらしいw
+- Google App Engine の紹介
+- BigTableはデータ容量が増えても性能変わらないよ
+- kayoauth GAEでOAuthの検証が出来るライブラリ(pythonのWAF専用らしい)
+- 70万PV $10/day
+- データのバックアップが課題
+
+
+* OpenSocial アプリ開発／管理プラットフォーム 「OpenSocial Host」 のご紹介
+上楽理央氏
+
+- OpenSocial向けのホスト
+-- OpenSocial APIのwrapperの提供
+-- ファイルストレージ、KVSの提供
+-- オートスケーリング、障害対応
+-- 管理コンソールの提供
+-- 複数platformの提供
+-- アクセス解析、イベント解析機能
+- 一部の機能だけを使える
+- ある程度以上の利用で従量制課金
+- JSが使える、OpenSocialに特化したPaaS
+- 課金APIには未対応(春予定らしい)
+- 汎用PaaS化、OpenSocialテンプレートへの対応
+
+
+* 大規模SNSにおけるソーシャルアプリの運用とマネタイズ(仮)
+神谷友輔氏
+
+- hentaisan@drecom.co.jpでメールが届くらしいw
+- ドリコムのOpenSocialのディレクター
+- マネタイズの重要なポイント
+-- 面白さ
+-- 安定した稼動
+-- 絶え間無い更新
+- すべては、また明日遊んでもらえるか、のため
+- OpenSocialでは、コンテナの課金システムを使うケースが多い
+- 成功経験の積み重ねに価値を付与する→マネタイズ
+- ゲームの進行に関係の無い成長、がポイント
+-- ゲームの進行自体は無料にして敷居を下げないといけない
+- 2つの成長のばらんす
+-- 時間消費型成長(時間を費やして手に入れる方法)
+-- 金銭消費型成長(お金を払って手に入れる方法)
+- ↑をそれぞれどこに割り当てるか
+- どちらかのパターンで「しか」取得できないものを用意する
+- モチベーションは「相手」がいるから発生する
+
+- 生んだ価値は劣化する→飽きるから
+- 劣化を監視するには
+-- DAU (1日に遊んでくれた人数)
+-- ARPU (課金率)
+-- バイラル率
+
+- 価値を継続させるにはどうするか
+- 絶対安定が必要
+-- 一度落ちたサービスに戻ってきてくれる可能性が低い
+- ソーシャルアプリ特有の事情
+-- タイムアウト制限(数秒)がある
+-- アクセスがヤバい
+-- ピークが特徴的
+--- リリース直後
+--- イベント時
+--- 日付変更時
+--- ランチタイムとかも
+-- どどんぱの可能性
+--- リリース直後に一気にバイラルする現象
+- ドリコムではEC2などでスタートして、スケーリングの見立てが出来たところで社内へ
+-- EC2は結構遅い、たまに落ちる
+-- PCとモバイルで広がり方に違いが
+-- ユーザーは何で遊ぶか分からない
+- Backendの一部をTokyoTyrantにしたり

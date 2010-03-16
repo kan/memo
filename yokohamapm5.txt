@@ -1,0 +1,159 @@
+yokohama.pm tech talk #5
+2010/03/05
+
+* Kamui
+- あつしさん
+
+* モバゲーの裏側 予告編
+- zigorouさん
+- 64万人友達がいるユーザーが!!
+- テーブルが分散してる関係で簡単にjoinを打てない＞＜
+-- inで頑張る
+-- max_allowed_packetにぶちあたるw→64Mくらいにしている
+-- temp tableを作って、bulk_insert→joinする♪
+- 並列動作するbentchmarkソフトを作った
+- Message API, Activity APIのはなし
+-- SNS内SPAM ww
+-- モバゲー内のメッセージ送信は共通の基盤
+-- Q4Mを使っている
+-- MySQL Partitioning
+--- Rangeで上手く分割できて、パーティションの削除も簡単
+--- 分割の制約に使うKEYはPRIMARY or UNIQUEでないといけない
+-- "各アプリ1件"という仕様を満たすためにサマリーテーブルを用意してる
+-- DBへinsertするworkerと、cacheするworkerの2段構成
+--- masterからcacheを作ると負荷が高すぎたのでslaveからcacheを作っている
+--- slaveでのreplication遅延が発生
+--- queueにmasterのidを持たせて遅延のチェックを使う
+- お大事に
+
+* Data::ObjectDriver
+- clouderさん
+-- livedoorではいくつかのproductで実行中
+- cache, partitioningに標準対応
+- master/slave構成も考慮している
+- 実装が薄い→使いやすいけど、has_manyとかは自分で頑張る必要あり
+- DirverとObject
+-- DriverはDB接続やキャッシュの仕方
+-- Objectはモデルクラス
+- 今の某Modelは大分D::ODに近づいてるな
+-- has_aはやっぱりあったほうが良いかも
+--- D::ODのhas_aはcacheの有無を指定できる
+- Driverの組み合わせで、cacheやパーティショニング、master/slaveを制御する
+- 素のSQL実行とかJOINはやり辛い
+
+* Plocky
+- tomyheroさん改めpolockyさん
+- wikiranking.jpで使われている
+- Webだけでない、アプリ全体のFramework
+- 雛形作成君(plocky-setup)がついてる
+-- 初期だと素朴な機能のみなので、WAF機能とかは後から足す
+-- controllerの末尾に__POLOCKY__って書かないといけない
+- CatalystっぽいControllerだけじゃなく、simpleな実装も選べるようになってる
+- CLIのhelperもついている
+
+* Twib
+- yusukebeさん
+- 一人で作るはてブもどき編
+- twib.jp → tweet中のURLを元にはてブっぽい見せ方をする
+- Appサーバx1, DBサーバx1 (自宅サービスで共有)
+- クロール時の取り零しが増えてきた→クローラ増やしたい
+-- クロール対象のURLをQ4Mに投げつつ、クローラが並行動作で頑張る
+- twitterのfeedを取得→StreamAPIを使うように変更
+- 画像APIサービスでもある
+-- URL言及数カウンター
+-- twitterプロフィール画像
+-- favicon
+- URL言及数カウンタはGizmodeで使われている
+- システムは Noe + skinnyを Starman + squid + Apache(front) で運用
+- Noeについて
+-- 2クラス+HTTPx::Dispatcherだけで構成
+-- plackに被せるskinて感じだ
+- チューニング頑張った
+-- 非正規化とlikeは別じゃね？
+- がんばりんご
+
+* OpenSocial Mobile Application Development
+- typesterさん
+- プレゼンのデザインが可愛くなってる!!
+- Moxy向けのOpenSocial pluginを作った
+-- OAuth署名付きのリクエストをapp serverへ送る
+--- OpenSocialの各種情報を入れると、gadget serverを偽装してくれる
+-- OpenSocialなリンクの変換
+- OpenSocial API呼出の効率化をしたい
+-- 非同期化？
+--- 書き辛い
+--- PHPでは使えない
+-- APIを待つのだけ非同期に
+- Plack::App::Reproxy
+-- X-REPROXY-URLの拡張
+-- X-REPROXY-CALLBACKで指定したURLへ、REPROXY-URLの結果をPOST
+-- 高速な実装誰か作って!!
+
+* Module::Setup 2
+- yappoさん
+- こんにちはこんにちは
+- smily hackathonで機能追加されたらしい
+- gfxさんが高速化しまくったw mattnさんがwindows対応させた
+- pmsetupが元
+- Module::Setup事始め
+-- インストールしたら module-setup --init で初期設定
+-- ↑の内容がdefault flavourになる
+-- 以降は module-setup <MODULE NAME> でモジュールが作れる
+-- GitHubフレーバーを使うとproject createからpushまで全部やってくれるw
+-- module-setup --init --flavour-class=GitHub github みたいな
+--- p5-%みたいなproject名を自動でつけてくれる
+-- 複数のflavourがある時は、どれを使うか選ばされる
+-- GitHub, Default, CatalystStarter, PBP, XSなんかが同梱flavour
+--- 他に iPhone app向けも
+-- module-setup --pack=<FlavourName> > FlavourClass.pm みたいにしてパックしてくれる
+-- executableオプションを付けると、雛形全自動作成するスクリプトを作れる
+-- 空っぽのflavourも作れるよ
+-- 既存のflavourを継承してpatchをあてたflavourも作れる
+-- pluginも使える
+-- 雛形生成の時には依存の少ない Module::Setup::Core を使うようにしたい
+
+* Template::Semantic
+- tomi-ruさん
+- 素のHTMLに、CSS selectorを使って変数のinjectionを行なうtemplate
+- Template::Refine inspire
+- TTの置き換えじゃないけどTT使いが違和感ない作りになってる
+- XML::LibXML使っている
+- ライブラリの使い方はTTに似てる
+- CSS selector + 部分的に XPathが使える
+- 基本的にHTML escapeされる。scalrrefを渡すとrawで処理される
+- processがchainできる
+- cookbookが色々
+- loopの仕方が結局分からんかったので、あとで勉強しとこうw
+
+* perl 5.12 features
+- gfxさん
+- 筑波からきますた
+- 昔話
+-- 5.10が最終バージョン
+-- 5.12はParrot上の最初の実装
+- そんなことはなかった
+- Modern Perl がテーマの「機能の整理」が中心
+- use 5.011; で auto use strict
+- ... でdieするyada yada yada オペレータ
+- arrayにeachが使える
+-- each (a, b, c) => 0, a 1, b 2, c
+- package Foo 0.0001; な書き方ができる
+- qrがオーバーロード出来る(ただし戻り値はregex)
+- ファイルテスト演算子もオーバーロードできる
+- PL_keyword_pluginで独自の構文を追加できる
+- UNIVERSALの関数をexportすると怒られる
+-- methodとして呼べ
+- use Switchすると怒られる
+-- use feature 'switch' しましょう
+- use bytesも非推奨
+-- bytes::lengthしたけちゃencodeしてからlength
+- gfxさんが5.14に入れたい機能の妄想
+-- 関数にブロックを渡せる
+-- OOモジュールをcore入り
+-- perl開発したい!
+- 就職頑張って下さい
+
+* ikasamaさんから「Webを支える技術」の宣伝
+- 買うます!
+- 買いました(amazonで)
+

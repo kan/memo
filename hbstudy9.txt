@@ -15,4 +15,15 @@ http://heartbeats.jp/hbstudy/2010/03/hbstudy9.html
 
 * MogileFSの話
 
-
+- tokuhirom
+- Ficiaの宣伝してる。めずらしい
+- FiciaではMogileFS使ってないよ!!!
+- MogileFSは「もがいる」と読みます
+- L7の分散ファイル管理システム
+- 主にweb屋さん向け
+- storeには色々なhttpdが使える
+- clientの実装は各言語ある
+- nginxを使ってwebUIでファイル管理できる仕組みもあったり
+- X-Reproxy-URLの仕組みを分かりやすく解説
+- 元からある優れた製品を使うのは大事
+- 本物のファイルシステムっぽく使いたい、みたいな質問が出るのが面白いなー

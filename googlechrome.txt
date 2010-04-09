@@ -116,4 +116,42 @@ Google Chrome Extension Tech Talk
 ここからLT
 
 
+* Google Calendar for Todayの紹介
+- background.htmlはlifetimeが長い
+- popupはクリック毎に生成、破棄
+- background側でデータ取得、構築までやっておいて、popupには出すだけ
+- ページの相互参照を避ける
 
+* Lyq
+- 検索するとクエリをtwitterにPOSTする(!)
+- 今夜のおかずwww
+
+* Social ATND
+- 株式会社あゆた の人
+- ATNDを拡張するgoogle chrome extensionの話
+
+* 拡張間連携とEvent Driven JS
+- taberarelooの人, chrome full feedの人でもあるか
+- 声でっけえw
+- background間で通信が出来る
+- 工夫によってcontent scriptsの通信も
+- chrome5からは、eventでJSONが自動的にencode/decodeされるようになるぽい
+
+* chrome拡張開発者のためのfirefox拡張入門
+- AutoPagerizeの人だー
+- jetpack(reboot)
+-- 自由度が高いかわりに難易度が高いFireFoxの拡張
+-- jetpackの登場→chrome拡張的にjsで書ける拡張
+-- 今後のAPIの拡張に期待
+- google chrome extension manager
+-- firefoxの中でchrome extensionを動かす
+-- chrome extensionのAPIをemulateする感じ
+-- 将来はどっちでも拡張が動く未来が？
+
+* taggingBuzz
+- カナダに住んでる人らしい
+- google buzzってフローだよね問題
+- buzzにtagを付けて管理するextension
+- 入力したtagをサーバ側で保存している
+-- 高速化のためにlocal storageも用意
+- ひとくちにextensionて言っても色々あるのう

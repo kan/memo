@@ -66,3 +66,54 @@ Google Chrome Extension Tech Talk
 -- stylistの実演→クラッシュしたw
 - os0xさんが使ってるweb baseのプレゼンツールかっこいいのう
 
+
+* HTML5 Forms Status for Chrome
+
+- 田村健人さん
+- Google Chrome開発チームの人
+- 新しいUI
+-- type=search, type=range
+-- CSSの疑似セレクタ :invalid
+--- requiredやtype=email、type=url等と対応して、invalidの時のスタイルを指定できる
+-- プレースホルダ
+-- textareaにmaxlengthが
+-- file入力にmultiple
+--- 現状は選択したファイル数だけが表示される(ファイル名はポップアップで)
+-- number, color, date, datetimeなどなどの新type
+--- colorやdateなどは本来入力UIがつくが、chromeは未対応
+--- 正規表現を指定できるpatternもある!
+-- min=0, step=2で偶数だけ、とかもできる
+-- 要素が全てvalidにならないとsubmitできない実装はもうすぐ入るよ!
+-- progressなんて要素も登場する
+-- WebKit本家だと入力補助UIがもうちょい実装されてる
+--- 基本ポリシーとしては、動作環境のnative UIに準拠した感じにしていく
+
+
+* Web(Kit) Notifications
+
+- 白石俊平さん
+- html5 developer japanの人
+- http://openweb.co.jp/
+- Web Notifications API
+-- Webアプリがユーザに通知を行なうためのAPI
+-- 所謂ひとつのgrowl
+-- 現在 working draft
+- 現状はchromeに非公式な実装が入っている
+- window.webkitNotifications
+-- でも webkit nightlyにも入ってない
+-- 仕様はchromiumのweb pageで公開されてる
+-- ↑のドラフトとはちょっと違う
+- 通知方法は2種類
+-- アイコンとテキストのSimple Notification
+-- Webページも出せる Web Notification
+- どういう表示にするかは実装依存(スマートフォンとかでも使えるように)
+-- OSの通知機能があるなら、そっちを使うかも
+- 通知の許可を取得(ユーザから)→Notificationオブジェクトを取得→通知の表示
+- 実際に使う場合、try catchで囲んでcatch側でpermissionを取得すると良いかも
+- ちゃんと動くようになると良さげだなー
+
+
+ここからLT
+
+
+

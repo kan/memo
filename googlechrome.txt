@@ -1,0 +1,68 @@
+Google Chrome Extension Tech Talk
+
+2010.04.09 Google Japan
+
+* Google Chrome 拡張開発者のためのHTML5ミニ講座
+
+- 及川卓也さん
+- HTML5/CSS3→Webを開発者のプラットフォームにする仕組み
+- HTML5の要素のおさらい
+-- video,canvas,audio
+-- formの拡張
+-- アプリケーションキャッシュ、DnD
+-- クロスドキュメントメッセージング
+-- web storage, indexed database
+-- web sockets
+-- geo location
+-- ファイル操作
+- Google Chromeで実装して提案していく仕組み
+-- Desktop Notification
+-- そして Chrome OSへ
+- 確かにミニ講座だ
+
+
+* Chrome 拡張入門
+
+- 太田昌吾さん(os0xさん)
+- Chrome ExtensionsのAPI Expert
+- Chromium Extensions Japan
+-- chromeの拡張機能について日本語で情報交換するコミュニティ
+-- オンライン勉強会なども計画中
+- Google Chromeについておさらい
+-- Chromium(WebKit+V8) => Google Chrome(chromiumのgoogleカスタム)
+-- chrome extensionは、chromium/chromeで動く拡張機能
+-- chromiumには障害報告や利用報告機能は無い。H.264の動画再生等も出来ない
+-- chromiumはOSSなのでソースを全て読める。カスタムバージョンも作りやすい(chrome+など)
+-- google chromeは stable, beta, dev の3バージョンある
+-- devは1週間ごとくらいのリリース頻度
+-- 現在 chrome 5の開発ピーク(不安定な時期)
+-- chromeで多い問題点はWebCoreとV8の接合部分
+- Chrome 拡張とは
+-- HTML/CSS/JSで作るブラウザを便利にする機能
+-- Chrome OSではアプリケーション的な役割を担う
+-- 作るのは簡単だけど制約が多い
+-- APIの数は結構少ない
+-- chrome5からは履歴を扱うAPIが追加される
+-- 実験段階のAPIもある(クリップボードAPIやinfoバーのAPIなど)
+- Chrome拡張のセキュリティ
+-- 拡張コンテキスト(APIを操作できる)
+-- ページコンテキスト(いわゆるJSの動作する環境)
+-- コンテントコンテキスト(今見ているページで動く)
+-- 拡張コンテキストとコンテントコンテキストでやり取り可能
+-- 特権をもってる拡張コンテキストの乗っ取りは困難
+-- 拡張同士のプロセスは独立している
+--- 拡張同士でやりとりするAPIはある
+-- それぞれの拡張にはIDが振られていて、cookieやlocal storageもそれ単位で保存される
+-- chrome-extension:// が拡張のスキーマ
+- Chrome拡張の用意
+-- 何はなくともmanifest.js
+-- アイコンが無いと寂しい
+-- chrome本体で拡張のパッケージングが可能(証明書も作ってくれ)る
+- 実際のchrome拡張を例にした講座
+-- (不味いことにここの記憶が無い‥‥)
+-- Web Inspectorの使い方など
+-- 知りたいことがあったらソースを読むべし
+- 質疑応答
+-- stylistの実演→クラッシュしたw
+- os0xさんが使ってるweb baseのプレゼンツールかっこいいのう
+
